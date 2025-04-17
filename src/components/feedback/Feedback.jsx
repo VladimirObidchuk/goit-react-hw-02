@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react";
 import css from "./Feedback.module.css";
 
-export default function FeedBack({ feedbackCounts }) {
-  const [total, setTotal] = useState("");
-  const [positivePrecentage, setpositivePrecentage] = useState("");
-  useEffect(() => {
-    const { good, neutral, bad } = feedbackCounts;
-    const totalFeedBack = good + neutral + bad;
-    setTotal(totalFeedBack);
-    if (totalFeedBack > 0) {
-      const procent = Math.round((good / totalFeedBack) * 100);
-      setpositivePrecentage(procent);
-    } else {
-      setpositivePrecentage(0);
-    }
-  }, [feedbackCounts]);
-
+export default function FeedBack({
+  feedbackCounts,
+  total,
+  positivePrecentage,
+}) {
   return (
     <section className={css.fedback}>
       <div className={css.container}>

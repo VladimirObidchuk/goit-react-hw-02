@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import FeedBack from "./feedback/Feedback";
-import Hero from "./hero/Hero";
-import Navigation from "./navigation/Navigation";
+import Optios from "./options/Options";
+import Description from "./description/Description";
+import Notification from "./notification/Notification";
 
 export default function App() {
   const [isView, setIsView] = useState(false);
   const [btnView, setBtnView] = useState(false);
+  const [total, setTotal] = useState("");
+  const [positivePrecentage, setpositivePrecentage] = useState("");
   const [feedBackCounts, setfeedBackCounts] = useState(() => {
     const saveFeedBack = window.localStorage.getItem("feed-back-data");
     if (!saveFeedBack) {
@@ -22,6 +25,17 @@ export default function App() {
       "feed-back-data",
       JSON.stringify(feedBackCounts)
     );
+  }, [feedBackCounts]);
+  useEffect(() => {
+    const { good, neutral, bad } = feedBackCounts;
+    const totalFeedBack = good + neutral + bad;
+    setTotal(totalFeedBack);
+    if (totalFeedBack > 0) {
+      const procent = Math.round((good / totalFeedBack) * 100);
+      setpositivePrecentage(procent);
+    } else {
+      setpositivePrecentage(0);
+    }
   }, [feedBackCounts]);
 
   const handleBtnClick = (feedbackType) => {
@@ -48,9 +62,17 @@ export default function App() {
 
   return (
     <div>
-      <Hero />
-      <Navigation onBtnClick={handleBtnClick} btnView={btnView} />
-      {isView ? <FeedBack feedbackCounts={feedBackCounts} /> : "No feedbck yet"}
+      <Description />
+      <Optios onBtnClick={handleBtnClick} btnView={btnView} />
+      {isView ? (
+        <FeedBack
+          feedbackCounts={feedBackCounts}
+          total={total}
+          positivePrecentage={positivePrecentage}
+        />
+      ) : (
+        <Notification />
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import css from "./Navigation.module.css";
+import css from "./Options.module.css";
 
-export default function Navigation({ onBtnClick, btnView }) {
+export default function Optios({ onBtnClick, btnView }) {
   return (
     <section className={css.nav}>
       <ul className={css.list}>

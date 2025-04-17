@@ -1,6 +1,6 @@
-import css from "./Hero.module.css";
+import css from "./Description.module.css";
 
-export default function Hero() {
+export default function Description() {
   return (
     <section className={css.hero}>
       <div className={css.container}>
