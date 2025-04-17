@@ -5,11 +5,11 @@ export default function FeedBack({ feedbackCounts }) {
   const [total, setTotal] = useState("");
   const [positivePrecentage, setpositivePrecentage] = useState("");
   useEffect(() => {
-    const { Good, Neutral, Bad } = feedbackCounts;
-    const totalFeedBack = Good + Neutral + Bad;
+    const { good, neutral, bad } = feedbackCounts;
+    const totalFeedBack = good + neutral + bad;
     setTotal(totalFeedBack);
     if (totalFeedBack > 0) {
-      const procent = Math.round((Good / totalFeedBack) * 100);
+      const procent = Math.round((good / totalFeedBack) * 100);
       setpositivePrecentage(procent);
     } else {
       setpositivePrecentage(0);
@@ -21,13 +21,13 @@ export default function FeedBack({ feedbackCounts }) {
       <div className={css.container}>
         <ul className={css.list}>
           <li className={css.item}>
-            <p className={css.text}>Good: {feedbackCounts.Good} </p>
+            <p className={css.text}>Good: {feedbackCounts.good} </p>
           </li>
           <li className={css.item}>
-            <p className={css.text}>Neutral: {feedbackCounts.Neutral}</p>
+            <p className={css.text}>Neutral: {feedbackCounts.neutral}</p>
           </li>
           <li className={css.item}>
-            <p className={css.text}>Bad: {feedbackCounts.Bad}</p>
+            <p className={css.text}>Bad: {feedbackCounts.bad}</p>
           </li>
           <li className={css.item}>
             <p className={css.text}>Total: {total} </p>

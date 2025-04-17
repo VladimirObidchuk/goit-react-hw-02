@@ -1,6 +1,6 @@
 import css from "./Navigation.module.css";
 
-export default function Navigation({ onBtnClick }) {
+export default function Navigation({ onBtnClick, btnView }) {
   return (
     <section className={css.nav}>
       <ul className={css.list}>
@@ -8,7 +8,7 @@ export default function Navigation({ onBtnClick }) {
           <button
             type="button"
             className={css.btn}
-            onClick={() => onBtnClick("Good")}
+            onClick={() => onBtnClick("good")}
           >
             Good
           </button>
@@ -17,7 +17,7 @@ export default function Navigation({ onBtnClick }) {
           <button
             type="button"
             className={css.btn}
-            onClick={() => onBtnClick("Neutral")}
+            onClick={() => onBtnClick("neutral")}
           >
             Neutral
           </button>
@@ -26,19 +26,21 @@ export default function Navigation({ onBtnClick }) {
           <button
             type="button"
             className={css.btn}
-            onClick={() => onBtnClick("Bad")}
+            onClick={() => onBtnClick("bad")}
           >
             Bad
           </button>
         </li>
         <li className={css.item}>
-          <button
-            type="button"
-            className={css.btn}
-            onClick={() => onBtnClick("Reset")}
-          >
-            Reset
-          </button>
+          {btnView && (
+            <button
+              type="button"
+              className={css.btn}
+              onClick={() => onBtnClick("reset")}
+            >
+              Reset
+            </button>
+          )}
         </li>
       </ul>
     </section>

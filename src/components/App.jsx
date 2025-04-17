@@ -5,32 +5,39 @@ import Navigation from "./navigation/Navigation";
 
 export default function App() {
   const [feedBackCounts, setfeedBackCounts] = useState({
-    Good: 0,
-    Neutral: 0,
-    Bad: 0,
+    good: 0,
+    neutral: 0,
+    bad: 0,
   });
   const [isView, setIsView] = useState(false);
+  const [btnView, setBtnView] = useState(false);
+
   const handleBtnClick = (feedbackType) => {
-    if (feedbackType === "Reset") {
+    if (feedbackType === "reset") {
       setfeedBackCounts({
-        Good: 0,
-        Neutral: 0,
-        Bad: 0,
+        good: 0,
+        neutral: 0,
+        bad: 0,
       });
       setIsView(false);
+      setBtnView(false);
     } else {
-      setfeedBackCounts((prevCounts) => ({
-        ...prevCounts,
-        [feedbackType]: prevCounts[feedbackType] + 1,
-      }));
+      setfeedBackCounts((prevCounts) => {
+        const newCounts = {
+          ...prevCounts,
+          [feedbackType]: prevCounts[feedbackType] + 1,
+        };
+        return newCounts;
+      });
       setIsView(true);
+      setBtnView(true);
     }
   };
 
   return (
     <div>
       <Hero />
-      <Navigation onBtnClick={handleBtnClick} />
+      <Navigation onBtnClick={handleBtnClick} btnView={btnView} />
       {isView ? <FeedBack feedbackCounts={feedBackCounts} /> : "No feedbck yet"}
     </div>
   );
