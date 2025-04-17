@@ -1,19 +1,37 @@
-import Product from "./Product";
+import { useState } from "react";
+import FeedBack from "./feedback/Feedback";
+import Hero from "./hero/Hero";
+import Navigation from "./navigation/Navigation";
 
 export default function App() {
+  const [feedBackCounts, setfeedBackCounts] = useState({
+    Good: 0,
+    Neutral: 0,
+    Bad: 0,
+  });
+  const [isView, setIsView] = useState(false);
+  const handleBtnClick = (feedbackType) => {
+    if (feedbackType === "Reset") {
+      setfeedBackCounts({
+        Good: 0,
+        Neutral: 0,
+        Bad: 0,
+      });
+      setIsView(false);
+    } else {
+      setfeedBackCounts((prevCounts) => ({
+        ...prevCounts,
+        [feedbackType]: prevCounts[feedbackType] + 1,
+      }));
+      setIsView(true);
+    }
+  };
+
   return (
     <div>
-      <h1>Best selling</h1>
-      <Product
-        name="Tacos With Lime"
-        imgUrl="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?dpr=2&h=480&w=640"
-        price={10.99}
-      />
-      <Product
-        name="Fries and Burger"
-        imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?dpr=2&h=480&w=640"
-        price={14.29}
-      />
+      <Hero />
+      <Navigation onBtnClick={handleBtnClick} />
+      {isView ? <FeedBack feedbackCounts={feedBackCounts} /> : "No feedbck yet"}
     </div>
   );
 }
