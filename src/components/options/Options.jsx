@@ -1,6 +1,6 @@
 import css from "./Options.module.css";
 
-export default function Optios({ onBtnClick, total }) {
+export default function Options({ onBtnClick, total }) {
   return (
     <section className={css.nav}>
       <ul className={css.list}>

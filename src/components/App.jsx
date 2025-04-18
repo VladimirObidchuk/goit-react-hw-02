@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import FeedBack from "./feedback/Feedback";
-import Optios from "./options/Options";
+import Options from "./options/Options";
 import Description from "./description/Description";
 import Notification from "./notification/Notification";
 
 export default function App() {
-  const [positivePercentage, setPositivePercentage] = useState("");
-  const [totalFeedBack, setTotalFeedBack] = useState(0);
   const [feedBackCounts, setfeedBackCounts] = useState(() => {
     const saveFeedBack = window.localStorage.getItem("feed-back-data");
     if (!saveFeedBack) {
@@ -23,16 +21,11 @@ export default function App() {
       "feed-back-data",
       JSON.stringify(feedBackCounts)
     );
-    const { good, neutral, bad } = feedBackCounts;
-    const totalFeedBack = good + neutral + bad;
-    setTotalFeedBack(totalFeedBack);
-    if (totalFeedBack > 0) {
-      const procent = Math.round((good / totalFeedBack) * 100);
-      setPositivePercentage(procent);
-    } else {
-      setPositivePercentage(0);
-    }
   }, [feedBackCounts]);
+
+  const { good, neutral, bad } = feedBackCounts;
+  const totalFeedBack = good + neutral + bad;
+  const positivePercentage = Math.round((good / totalFeedBack) * 100);
 
   const handleBtnClick = (feedbackType) => {
     if (feedbackType === "reset") {
@@ -55,7 +48,7 @@ export default function App() {
   return (
     <div>
       <Description />
-      <Optios onBtnClick={handleBtnClick} total={totalFeedBack} />
+      <Options onBtnClick={handleBtnClick} total={totalFeedBack} />
       {totalFeedBack > 0 ? (
         <FeedBack
           feedbackCounts={feedBackCounts}
