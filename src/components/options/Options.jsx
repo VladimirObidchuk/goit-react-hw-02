@@ -1,7 +1,6 @@
 import css from "./Options.module.css";
 
 export default function Optios({ onBtnClick, total }) {
-  console.log(" total", total);
   return (
     <section className={css.nav}>
       <ul className={css.list}>
