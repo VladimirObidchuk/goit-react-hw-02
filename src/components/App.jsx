@@ -5,10 +5,8 @@ import Description from "./description/Description";
 import Notification from "./notification/Notification";
 
 export default function App() {
-  const [isView, setIsView] = useState(false);
-  const [btnView, setBtnView] = useState(false);
-  const [total, setTotal] = useState("");
-  const [positivePrecentage, setpositivePrecentage] = useState("");
+  const [positivePercentage, setPositivePercentage] = useState("");
+  const [totalFeedBack, setTotalFeedBack] = useState(0);
   const [feedBackCounts, setfeedBackCounts] = useState(() => {
     const saveFeedBack = window.localStorage.getItem("feed-back-data");
     if (!saveFeedBack) {
@@ -25,16 +23,14 @@ export default function App() {
       "feed-back-data",
       JSON.stringify(feedBackCounts)
     );
-  }, [feedBackCounts]);
-  useEffect(() => {
     const { good, neutral, bad } = feedBackCounts;
     const totalFeedBack = good + neutral + bad;
-    setTotal(totalFeedBack);
+    setTotalFeedBack(totalFeedBack);
     if (totalFeedBack > 0) {
       const procent = Math.round((good / totalFeedBack) * 100);
-      setpositivePrecentage(procent);
+      setPositivePercentage(procent);
     } else {
-      setpositivePrecentage(0);
+      setPositivePercentage(0);
     }
   }, [feedBackCounts]);
 
@@ -45,8 +41,6 @@ export default function App() {
         neutral: 0,
         bad: 0,
       });
-      setIsView(false);
-      setBtnView(false);
     } else {
       setfeedBackCounts((prevCounts) => {
         const newCounts = {
@@ -55,20 +49,18 @@ export default function App() {
         };
         return newCounts;
       });
-      setIsView(true);
-      setBtnView(true);
     }
   };
 
   return (
     <div>
       <Description />
-      <Optios onBtnClick={handleBtnClick} btnView={btnView} />
-      {isView ? (
+      <Optios onBtnClick={handleBtnClick} total={totalFeedBack} />
+      {totalFeedBack > 0 ? (
         <FeedBack
           feedbackCounts={feedBackCounts}
-          total={total}
-          positivePrecentage={positivePrecentage}
+          total={totalFeedBack}
+          positivePrecentage={positivePercentage}
         />
       ) : (
         <Notification />

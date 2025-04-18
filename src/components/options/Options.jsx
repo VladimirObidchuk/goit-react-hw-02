@@ -1,6 +1,7 @@
 import css from "./Options.module.css";
 
-export default function Optios({ onBtnClick, btnView }) {
+export default function Optios({ onBtnClick, total }) {
+  console.log(" total", total);
   return (
     <section className={css.nav}>
       <ul className={css.list}>
@@ -32,7 +33,7 @@ export default function Optios({ onBtnClick, btnView }) {
           </button>
         </li>
         <li className={css.item}>
-          {btnView && (
+          {total > 0 && (
             <button
               type="button"
               className={css.btn}
